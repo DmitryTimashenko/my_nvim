@@ -20,7 +20,7 @@ return {
           end
 
           local absolute_path = vim.fn.fnamemodify(filename, ":p")
-          local home_path = vim.fn.expand("~/projects/shared-dictionaries-service")
+          local home_path = vim.fn.expand("~/projects/domain-control-service")
           local container_path = absolute_path:gsub(
             vim.pesc(home_path),
             "/var/www"
@@ -28,12 +28,12 @@ return {
 
           return {
             "compose",
-            "--file=.ops/docker-compose.app.yml",
+            "--file=.ops/docker-compose.php.yml",
             "--project-directory=.",
             "exec",
             "-T",
             "-u", tostring(uid),
-            "app",
+            "php",
             "/var/www/vendor/bin/php-cs-fixer",
             "fix",
             "--using-cache=no",
@@ -43,7 +43,7 @@ return {
           }
         end,
         cwd = function()
-          return "/home/timashenkod/projects/shared-dictionaries-service"
+          return "/home/timashenkod/projects/domain-control-service"
         end,
         stdin = false,
       }
