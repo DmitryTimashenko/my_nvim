@@ -1,7 +1,9 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
-require("user.php")
+
+require("plugins.mason")   -- подключает плагины и mason
+require("config.lsp")      -- настраивает LSP
 
 -- Если установили через cargo
 vim.g.stylua_path = "/usr/local/bin/stylua"
@@ -43,3 +45,18 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.cmd("checktime")
   end,
 })
+
+
+
+
+-- Установка настроек для lazygit.nvim
+vim.g.lazygit_use_custom_config_file_path = 1  -- Включить использование кастомного пути к конфигу
+vim.g.lazygit_config_file_path = "~/.config/lazygit/config.yml"  -- Указать путь к вашему конфигу Lazygit
+
+-- Или, если вы хотите задать настройки напрямую через переменные Neovim (если плагин это поддерживает)
+-- Это менее распространенный способ, но некоторые плагины позволяют так делать
+vim.g.lazygit_config = {
+    git = {
+        skipHookPrefix = "WIP",
+    },
+}
